@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VIRUS BRAMBORÁTOR 3000</title>
+<style>
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle at 20% 15%,#30306a,#101018 55%,#050508);color:#f4f4ff;font:16px/1.5 system-ui,sans-serif;padding:22px;box-sizing:border-box}
+main{width:min(760px,100%);border:2px solid #8d78ff;border-radius:20px;background:#151522;box-shadow:0 0 50px #7357ff55;padding:26px;box-sizing:border-box}
+h1{margin:0;font-size:clamp(2rem,7vw,4rem);line-height:1.05}.subtitle{color:#c5bbff}.potato{font-size:5rem;text-align:center}
+.bar{height:18px;background:#303044;border-radius:99px;overflow:hidden;margin:16px 0}.fill{height:100%;width:0%;background:linear-gradient(90deg,#a5ff5e,#9b7cff);transition:width .25s}
+button{background:#a5ff5e;color:#111;border:0;border-radius:12px;padding:12px 18px;font-weight:800;cursor:pointer;font-size:1rem}
+#log{min-height:150px;padding:14px;border-radius:12px;background:#09090f;color:#b7ffa0;font-family:ui-monospace,monospace;white-space:pre-wrap}
+.small{color:#b6b6ca;font-size:.9rem}.badge{display:inline-block;background:#32284d;color:#d8ccff;padding:4px 9px;border-radius:99px}
+@keyframes wobble{0%,100%{transform:rotate(0)}25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}.wobble{animation:wobble .35s infinite}
+</style>
+</head>
+<body><main>
+<span class="badge">100% fiktivní • 0% škodlivý</span>
+<h1>BRAMBORÁTOR <span style="color:#a5ff5e">3000</span></h1>
+<p class="subtitle">Pokročilý systém na hledání brambor v počítači.</p>
+<div class="potato" id="potato">🥔</div>
+<p><strong>Stav systému:</strong> <span id="status">Brambora zatím nebyla nalezena.</span></p>
+<div class="bar"><div class="fill" id="fill"></div></div>
+<button id="start">ZAHÁJIT BRAMBOROVÝ SKEN</button>
+<button id="reset" hidden style="margin-left:8px;background:#d9d4ff">Ještě jednou</button>
+<h2>Výpis diagnostiky</h2>
+<div id="log">BRAMBORÁTOR v3.000.000 se připravil.
+Čekám na povolení hledat hlízy…</div>
+<p class="small">Toto je pouze neškodná offline webová legrace. Nic neinstaluje, nic nemaže, nic neodesílá a nemění nastavení počítače. Zavři kartu a je po „viru“.</p>
+</main>
+<script>
+const lines=[
+"Prohledávám složku C:/Brambory…",
+"Nalezena 1 brambora. Podezřele kulatá.",
+"Kontroluji klávesnici: mezerník chutná normálně.",
+"Analyzuji myš… bohužel není hlodavec.",
+"Stahuji aktualizaci kečupu… 0 % (kečup došel).",
+"Upozornění: monitor nevydává hranolky.",
+"Počítám pixely. Jeden se schoval.",
+"Kontaktování centrálního bramborového úřadu… obsazeno.",
+"Kalibrace hlízy dokončena. Hlíza má náladu.",
+"VÝSLEDEK: V počítači je 1 virtuální brambora a 0 důvodů k panice."
+];
+const start=document.getElementById('start'),reset=document.getElementById('reset'),fill=document.getElementById('fill'),log=document.getElementById('log'),status=document.getElementById('status'),potato=document.getElementById('potato');
+let running=false;
+start.addEventListener('click',()=>{
+ if(running)return;running=true;start.disabled=true;start.textContent="BRAMBORA SE ZPRACOVÁVÁ…";reset.hidden=true;log.textContent="";potato.classList.add('wobble');let i=0;
+ const timer=setInterval(()=>{
+  log.textContent+=(log.textContent?"\n":"")+"> "+lines[i];fill.style.width=((i+1)/lines.length*100)+"%";
+  status.textContent=["Hledám hlízu…","Provádím hlízovou analýzu…","Skoro hotovo…"][Math.min(2,Math.floor(i/3))];i++;
+  if(i>=lines.length){clearInterval(timer);running=false;potato.classList.remove('wobble');status.textContent="Počítač je oficiálně bramborově v pořádku.";start.disabled=false;start.textContent="SKEN DOKONČEN";reset.hidden=false;}
+ },650);
+});
+reset.addEventListener('click',()=>{fill.style.width="0%";status.textContent="Brambora zatím nebyla nalezena.";log.textContent="BRAMBORÁTOR se připravil.\nČekám na povolení hledat hlízy…";start.textContent="ZAHÁJIT BRAMBOROVÝ SKEN";reset.hidden=true;});
+</script></body></html>
